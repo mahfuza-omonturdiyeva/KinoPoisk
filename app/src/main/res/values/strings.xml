@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">KinoPoisk</string>
+    <string name="tv_film_description">Команда пилотируемых роботов-защитников остановила вторжение гигантских инопланетных монстров. Великая битва за Тихоокеанский рубеж ознаменовала новую главу в истории человечества. Однако война только начинается…\nrПришло время нового поколения отстаивать своё право на Землю.</string>
+    <string name="tv_film_name">1+1</string>
+    <string name="tv_locale_name">Фильм</string>
+    <string name="tv_item_film">приключения</string>
+    <string name="tv_genre">Жанры</string>
+    <string name="tv_global">главная</string>
+</resources>
