@@ -1,6 +1,5 @@
 package uz.gita.kinopoisk.repository.impl
 
-import android.util.Log
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -27,7 +26,6 @@ object RepositoryImpl : Repository {
             ) {
                 if (response.isSuccessful) {
                     response.body()?.let {
-                        Log.d("1111", "onResponse: ")
                         listFilms.clear()
                         val sortedlist =
                             it.films.sortedBy { filmWithGenre: FilmWithGenre -> filmWithGenre.localized_name }

@@ -2,11 +2,12 @@ package uz.gita.kinopoisk.view.screen.impl
 
 import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import uz.gita.kinopoisk.R
 import uz.gita.kinopoisk.data.model.data.Film
@@ -17,7 +18,8 @@ import uz.gita.kinopoisk.presenter.impl.FilmPresenterImpl
 import uz.gita.kinopoisk.view.screen.FilmView
 
 class FilmScreen : Fragment(R.layout.screen_film), FilmView {
-    private val binding by viewBinding(ScreenFilmBinding::bind)
+    private var _binding: ScreenFilmBinding? = null
+    private val binding get() = _binding!!
     private val args: FilmScreenArgs by navArgs()
     private var presenter: FilmPresenter = FilmPresenterImpl(FilmModelImpl())
 
@@ -28,6 +30,7 @@ class FilmScreen : Fragment(R.layout.screen_film), FilmView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding= ScreenFilmBinding.bind(view)
         val id = args.id
         presenter.joinFilm(id)
         binding.imgBack.setOnClickListener {
@@ -61,8 +64,9 @@ class FilmScreen : Fragment(R.layout.screen_film), FilmView {
         findNavController().navigate(FilmScreenDirections.actionFilmScreenToMainScreen())
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
         presenter.onDetachView()
     }
 }

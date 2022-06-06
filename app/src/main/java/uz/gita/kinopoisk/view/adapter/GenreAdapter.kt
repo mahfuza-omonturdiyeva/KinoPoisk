@@ -37,7 +37,7 @@ class GenreAdapter :
     inner class GenreHolder(private val itemGenreBinding: ItemGenreBinding) :
         RecyclerView.ViewHolder(itemGenreBinding.root) {
         fun bind() {
-            getItem(absoluteAdapterPosition).apply {
+            getItem(adapterPosition).apply {
                 itemGenreBinding.tvGenre.text = this.genre
                 Glide
                     .with(itemGenreBinding.imgGenre)
@@ -47,13 +47,13 @@ class GenreAdapter :
                     .into(itemGenreBinding.imgGenre)
                 val genre = this.genre
                 itemGenreBinding.root.apply {
-                    alpha = if (index == absoluteAdapterPosition) {
+                    alpha = if (index == adapterPosition) {
                         onCLickItemListener?.invoke(genre)
                         0.2f
                     } else 1f
                 }
                 itemGenreBinding.root.setOnClickListener {
-                    index = absoluteAdapterPosition
+                    index = adapterPosition
                     notifyDataSetChanged()
                     onCLickItemListener?.invoke(this.genre)
                 }

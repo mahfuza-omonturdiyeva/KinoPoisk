@@ -2,14 +2,14 @@ package uz.gita.kinopoisk.view.screen.impl
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.kirich1409.viewbindingdelegate.viewBinding
 import uz.gita.kinopoisk.R
 import uz.gita.kinopoisk.data.model.data.Film
 import uz.gita.kinopoisk.data.model.data.Genre
@@ -22,7 +22,8 @@ import uz.gita.kinopoisk.view.adapter.GenreAdapter
 import uz.gita.kinopoisk.view.screen.MainView
 
 class MainScreen : Fragment(R.layout.screen_main), MainView {
-    private val binding by viewBinding(ScreenMainBinding::bind)
+    private var _binding: ScreenMainBinding? = null
+    private val binding get() = _binding!!
     private val filmAdapter by lazy { FilmAdapter() }
     private val genreAdapter by lazy { GenreAdapter() }
     private var presenter: MainPresenter = MainPresenterImpl(MainModelImpl())
@@ -38,11 +39,12 @@ class MainScreen : Fragment(R.layout.screen_main), MainView {
         if (savedInstanceState != null) {
             index = savedInstanceState.getInt("index")
         }
-        presenter.init()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        _binding= ScreenMainBinding.bind(view)
+        presenter.init()
     }
 
     private fun showShimmerFilms() {
@@ -99,8 +101,9 @@ class MainScreen : Fragment(R.layout.screen_main), MainView {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding=null
         presenter.onDetachView()
     }
 

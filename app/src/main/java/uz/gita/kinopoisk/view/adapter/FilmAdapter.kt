@@ -29,7 +29,7 @@ class FilmAdapter :
         RecyclerView.ViewHolder(itemFilmBinding.root) {
 
         fun bind() {
-            getItem(absoluteAdapterPosition).apply {
+            getItem(adapterPosition).apply {
                 itemFilmBinding.tvLocaleNameFilm.text = this.localized_name
                 Glide.with(itemFilmBinding.imgFilm)
                     .load(this.image_url)
